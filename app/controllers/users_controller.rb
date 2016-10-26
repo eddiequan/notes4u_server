@@ -38,6 +38,16 @@ class UsersController < ApplicationController
     @user.destroy
   end
 
+  def login
+    pp user_params
+    user = User.where(username: user_params[:username]).first
+    if (correct_creds? user_params)
+      render json: {token: user.auth_token}
+    else
+      render json: "did not log in successfully"
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -46,6 +56,15 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:name, :email, :first_name, :last_name, :phone_number)
+      params.require(:user).permit(:name, :email, :username, :first_name, :last_name, :phone_number, :password)
+    end
+
+    def correct_creds?(params)
+      user = User.where(username: params[:username]).first
+      if (user.password == params[:password])
+        true
+      else
+        false
+      end
     end
 end

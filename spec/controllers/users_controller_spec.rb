@@ -16,11 +16,29 @@ RSpec.describe UsersController, :type => :controller do
       expect(User.count).to eq(1)
     end
 
+    it "creates an authentication token when a user is created" do
+      post :create, params: {user: {first_name: "first name", last_name: "last name"}}
+      
+      expect(User.take(1).first.auth_token).to_not be_nil
+    end
+
+
     it "has a first name and last name" do
       user = User.create!(first_name: "first name", last_name: "last name")
       get :index
 
       expect(response.body).to include("first name")
+    end
+  end
+
+  describe "Logging in" do
+    it "returns an auth token when you log in" do
+      user = User.create!(username: "username", password: "password")
+      
+      post "login", params: {user: {username: user.username, password: user.password}}
+      
+      expect(response.body).to include(user.auth_token)
+      pp response.body
     end
   end
 end
