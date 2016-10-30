@@ -2,6 +2,7 @@ require 'securerandom'
 
 class User < ApplicationRecord
   before_create :set_auth_token
+  validates :first_name, :last_name, :username, :presence => true
   validates_uniqueness_of :username
 
   def first_user
