@@ -5,6 +5,10 @@ class User < ApplicationRecord
   validates :first_name, :last_name, :username, :presence => true
   validates_uniqueness_of :username
 
+  has_many :requests, :class_name => "Request", :foreign_key => :req_id
+  has_many :replies, through: :requests  
+  has_many :tooks
+
   def first_user
     User.take(1)
   end
