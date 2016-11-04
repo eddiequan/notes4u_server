@@ -39,7 +39,6 @@ class UsersController < ApplicationController
   end
 
   def login
-    pp user_params
     user = User.where(username: user_params[:username]).first
     if (correct_creds? user_params)
       render json: {token: user.auth_token}
