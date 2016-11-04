@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :users
+  resources :users do
+    resources :ratings
+  end
   resources :courses
   resources :requests
 
