@@ -39,7 +39,6 @@ class UsersController < ApplicationController
   end
 
   def login
-    pp user_params
     user = User.where(username: user_params[:username]).first
     if (correct_creds? user_params)
       render json: {token: user.auth_token}
@@ -56,7 +55,7 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:name, :email, :username, :first_name, :last_name, :phone_number, :password)
+      params.require(:user).permit(:email, :username, :first_name, :last_name, :phone_number, :password, :major)
     end
 
     def correct_creds?(params)

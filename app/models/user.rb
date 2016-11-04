@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   has_many :requests, :class_name => "Request", :foreign_key => :req_id
   has_many :replies, through: :requests  
-  has_many :tooks
+  has_many :ratings
 
   def first_user
     User.take(1)
