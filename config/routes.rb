@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :courses
   resources :replies
+  resources :ratings
+
   resources :requests
   resources :requests do
     resources :replies
