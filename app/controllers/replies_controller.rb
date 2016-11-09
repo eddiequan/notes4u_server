@@ -10,7 +10,13 @@ class RepliesController < ApplicationController
 
   # GET /replies/1
   def show
+#    if signed_in?
+#      @reply = Reply.find(params[:id])
+#      @my_replies = current_user.replies
+#      render json: @my_replies
+#    else
     render json: @reply
+#    end
   end
 
   # POST /replies
