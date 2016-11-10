@@ -1,16 +1,14 @@
 class RequestsController < ApplicationController
-  before_action :set_request, :get_user, only: [:show, :update, :destroy]
+  before_action :set_request, only: [:show, :update, :destroy]
 
   # GET /requests
   def index
-    @requests = @user.requests.all
 
     render json: @requests
   end
 
   # GET /requests/1
   def show
-    @request = @user.requests.find(params[:id])
     render json: @request
   end
 
@@ -50,8 +48,4 @@ class RequestsController < ApplicationController
       params.require(:request).permit(:user_id, :course_id, :when, :location)
     end
 
-    # Get the requests for a specific user
-    def get_user
-      @user = User.find(params[:user_id])
-    end
 end
