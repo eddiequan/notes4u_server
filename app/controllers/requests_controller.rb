@@ -3,14 +3,14 @@ class RequestsController < ApplicationController
 
   # GET /requests
   def index
-    @requests = @user.Request.all
+    @requests = @user.requests.all
 
     render json: @requests
   end
 
   # GET /requests/1
   def show
-    @request = @user.Request.find(params[:id])
+    @request = @user.requests.find(params[:id])
     render json: @request
   end
 
