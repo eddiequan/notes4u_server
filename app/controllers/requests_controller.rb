@@ -1,14 +1,16 @@
 class RequestsController < ApplicationController
+  before_action :set_users
   before_action :set_request, only: [:show, :update, :destroy]
 
   # GET /requests
   def index
-    @requests = Request.all
+    @requests = @user.Requests
     render json: @requests
   end
 
   # GET /requests/1
   def show
+    @request = @user.Requests.find(params[:id])
     render json: @request
   end
 
@@ -42,6 +44,9 @@ class RequestsController < ApplicationController
     def set_request
       @request = Request.find(params[:id])
     end
+
+    def set_users
+      @user = User.find(params[:user_id])
 
     # Only allow a trusted parameter "white list" through.
     def request_params
