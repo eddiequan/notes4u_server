@@ -3,7 +3,7 @@ class RequestsController < ApplicationController
 
   # GET /requests
   def index
-    @requests = Request.all
+    @requests = @user.Request.all
 
     render json: @requests
   end
