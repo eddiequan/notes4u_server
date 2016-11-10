@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   resources :users do
-    resources :ratings
-    resources :replies
-    resources :requests
+    resources :ratings, :replies, :requests
   end
 
   resources :courses
