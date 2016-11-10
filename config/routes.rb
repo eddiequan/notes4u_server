@@ -8,8 +8,7 @@ Rails.application.routes.draw do
   resources :ratings
 
   resources :requests do
-    resources :replies
-    resources :courses
+    resources :replies, :courses
   end
 
   root to: 'users#index'
