@@ -1,5 +1,5 @@
 class RequestsController < ApplicationController
-  before_action :set_request, only: [:show, :update, :destroy]
+  before_action :set_request, :get_user, only: [:show, :update, :destroy]
 
   # GET /requests
   def index
@@ -10,7 +10,7 @@ class RequestsController < ApplicationController
 
   # GET /requests/1
   def show
-    @request = Request.find(params[:id])
+    @request = @user.Request.find(params[:id])
     render json: @request
   end
 
@@ -48,5 +48,10 @@ class RequestsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def request_params
       params.require(:request).permit(:user_id, :course_id, :when, :location)
+    end
+
+    # Get the requests for a specific user
+    def get_user
+      @user = User.find(params[:user_id])
     end
 end
