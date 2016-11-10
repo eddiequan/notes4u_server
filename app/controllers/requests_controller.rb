@@ -4,7 +4,6 @@ class RequestsController < ApplicationController
   # GET /requests
   def index
     @requests = Request.all
-
     render json: @requests
   end
 
@@ -48,4 +47,5 @@ class RequestsController < ApplicationController
     def request_params
       params.require(:request).permit(:user_id, :course_id, :when, :location)
     end
+
 end
