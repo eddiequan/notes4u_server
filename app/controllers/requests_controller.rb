@@ -1,16 +1,14 @@
 class RequestsController < ApplicationController
-  before_action :get_users
   before_action :set_request, only: [:show, :update, :destroy]
 
   # GET /requests
   def index
-    @requests = @user.Requests
+    @requests = Request.all
     render json: @requests
   end
 
   # GET /requests/1
   def show
-    @request = @user.Requests.find(params[:id])
     render json: @request
   end
 
