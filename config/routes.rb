@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :users
   resources :users do
     resources :ratings
     resources :replies
@@ -8,9 +7,7 @@ Rails.application.routes.draw do
 
   resources :courses
   resources :replies
-  resources :ratings
 
-  resources :requests
   resources :requests do
     resources :replies
     resources :courses
