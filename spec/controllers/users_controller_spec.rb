@@ -37,7 +37,6 @@ RSpec.describe UsersController, :type => :controller do
       post "login", params: {user: {username: user.username, password: user.password}}
       
       expect(response.body).to include(user.auth_token)
-      pp response.body
     end
   end
 end
