@@ -14,7 +14,9 @@ class RequestsController < ApplicationController
 
   # POST /requests
   def create
+    pp "GOT IN HERE @@@@@@@!!!!!!!!!!!!"
     @request = Request.new(request_params)
+    pp request_params
 
     if @request.save
       render json: @request, status: :created, location: @request

@@ -1,7 +1,7 @@
 class Reply < ApplicationRecord
-  validates :req_id, :user_id, :status, :presence => true
+  validates :request_id, :user_id, :status, :presence => true
 
-  belongs_to :requests
-  belongs_to :users
+  belongs_to :request
+  belongs_to :user
 
 end
