@@ -26,8 +26,9 @@ class RepliesController < ApplicationController
   # POST /replies
   def create
     @reply = Reply.new(reply_params)
-
+    request = Request.where(id: @reply.request_id).first
     if @reply.save
+      request.update_attributes!(status: 1)
       render json: @reply, status: :created, location: @reply
     else
       render json: @reply.errors, status: :unprocessable_entity
@@ -37,6 +38,19 @@ class RepliesController < ApplicationController
   # PATCH/PUT /replies/1
   def update
     if @reply.update(reply_params)
+      render json: @reply
+    else
+      render json: @reply.errors, status: :unprocessable_entity
+    end
+  end
+
+  # THIS IS FOR WHEN THE SLACKER APPROVES OF A NOTETAKER
+  # TODO: RENAME THIS METHOD TO "APPROVE" OR SOMETHING
+  def approve_request
+    @reply = Reply.where(id: params[:id]).first
+    request = Request.where(id: @reply.request_id).first
+    if @reply.update(reply_params)
+      request.update_attributes!(status: 2)
       render json: @reply
     else
       render json: @reply.errors, status: :unprocessable_entity
@@ -62,6 +76,6 @@ class RepliesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def reply_params
-      params.require(:reply).permit(:req_id, :user_id, :status)
+      params.require(:reply).permit(:notetaker_id, :request_id, :status, :slacker_id)
     end
 end

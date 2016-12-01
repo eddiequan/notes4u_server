@@ -3,9 +3,14 @@ Rails.application.routes.draw do
     resources :ratings, :replies, :requests
   end
 
-  get '/replies/accepted_requests/:id', to: 'replies#accepted'
+  get '/replies/accepted/:id', to: 'replies#accepted'
+  # put '/replies/:id/accept_request', to: 'replies#accept_request'
   resources :courses
-  resources :replies
+  resources :replies do
+    member do
+      put 'approve_request'
+    end
+  end
   resources :ratings
 
   resources :requests do
