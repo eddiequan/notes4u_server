@@ -47,6 +47,12 @@ class NotificationsController < ApplicationController
     render json: @notifications
   end
 
+  def get_notifications
+    @notifications = Notification.all.where(user_id: params[:user_id]).order(:id).reverse_order
+    
+    render json: @notifications
+  end
+
   def for_user
     
   end

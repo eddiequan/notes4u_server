@@ -29,10 +29,19 @@ class RepliesController < ApplicationController
     request = Request.where(id: @reply.request_id).first
     if @reply.save
       request.update_attributes!(status: 1)
+
+      create_notification_for_slacker(@reply)
+
       render json: @reply, status: :created, location: @reply
     else
       render json: @reply.errors, status: :unprocessable_entity
     end
+  end
+
+  def create_notification_for_slacker(reply)
+    user = User.where(id: reply.notetaker_id).first
+    notification = Notification.new(message: "#{user.first_name} has responded to your request!", user_id: reply.slacker_id)
+    notification.save!
   end
 
   # PATCH/PUT /replies/1
@@ -51,16 +60,23 @@ class RepliesController < ApplicationController
     request = Request.where(id: @reply.request_id).first
     if @reply.update(reply_params)
       request.update_attributes!(status: 2)
+      create_notification_for_notetaker(@reply)
       render json: @reply
     else
       render json: @reply.errors, status: :unprocessable_entity
     end
   end
 
+  def create_notification_for_notetaker(reply)
+    user = User.where(id: reply.slacker_id).first
+    notification = Notification.new(message: "#{user.first_name} has appointed you as a Notetaker!", user_id: reply.notetaker_id)
+    notification.save!
+  end
+
   # DELETE /replies/1
   def destroy
     @reply.destroy
-  end
+  end 
 
   def accepted
     @replies = Reply.all.where(slacker_id: params[:id], status: ACCEPTED)

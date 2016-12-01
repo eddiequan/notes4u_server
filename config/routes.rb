@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :ratings
 
   get '/notifications/new_notifications/:user_id', to: 'notifications#new_notifications'
+  get '/notifications/get_notifications/:user_id', to: 'notifications#get_notifications'
   resources :notifications
 
   resources :requests do
