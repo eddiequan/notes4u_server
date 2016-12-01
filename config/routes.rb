@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   end
   resources :ratings
 
+  get '/notifications/new_notifications/:user_id', to: 'notifications#new_notifications'
+  resources :notifications
+
   resources :requests do
     resources :replies, :courses
   end

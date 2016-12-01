@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201211433) do
+ActiveRecord::Schema.define(version: 20161201214535) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20161201211433) do
   create_table "notifications", force: :cascade do |t|
     t.integer "user_id"
     t.string  "message"
-    t.integer "status"
+    t.integer "status",  default: 0
   end
 
   create_table "ratings", force: :cascade do |t|
