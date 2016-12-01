@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :ratings, :replies, :requests
   end
 
+  get '/replies/accepted_requests/:id', to: 'replies#accepted'
   resources :courses
   resources :replies
   resources :ratings

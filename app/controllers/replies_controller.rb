@@ -1,6 +1,10 @@
 class RepliesController < ApplicationController
   before_action :set_reply, only: [:show, :update, :destroy]
 
+  UNACCEPTED = 0
+  PENDING = 1
+  ACCEPTED = 2
+
   # GET /replies
   def index
     @replies = Reply.all
@@ -42,6 +46,12 @@ class RepliesController < ApplicationController
   # DELETE /replies/1
   def destroy
     @reply.destroy
+  end
+
+  def accepted
+    @replies = Reply.all.where(slacker_id: params[:id], status: ACCEPTED)
+
+    render json: @replies
   end
 
   private
