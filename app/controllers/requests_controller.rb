@@ -18,6 +18,17 @@ class RequestsController < ApplicationController
     render json: @replies
   end
 
+  # GET /requests/1/notetakers
+  def notetakers
+    @replies = Reply.where(request_id: params[:id])
+    @notetakers = []
+    @replies.each do |reply|
+      user = User.where(id: reply.notetaker_id)
+      @notetakers += user if user
+    end
+    render json: @notetakers
+  end
+
   # POST /requests
   def create
     pp "GOT IN HERE @@@@@@@!!!!!!!!!!!!"

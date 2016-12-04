@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :requests do
     member do
       get 'replies'
+      get 'notetakers'
     end
   end
 
