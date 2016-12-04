@@ -4,6 +4,7 @@ class RepliesController < ApplicationController
   UNACCEPTED = 0
   PENDING = 1
   ACCEPTED = 2
+  FINISHED = 3
 
   # GET /replies
   def index
@@ -82,6 +83,16 @@ class RepliesController < ApplicationController
     @replies = Reply.all.where(notetaker_id: params[:id], status: ACCEPTED)
 
     render json: @replies
+  end
+
+  def upload
+    @reply = Reply.where(id: params[:id]).first
+
+    request = Request.where(id: @reply.request_id).first
+    @reply.update_attributes! status: 3
+    request.update_attributes! status: 3, download_link: 'https://s3.amazonaws.com/notes4u/HaskellNotes.pdf'
+
+    render json: @reply
   end
 
   private
