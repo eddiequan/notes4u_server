@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   get '/replies/accepted/:id', to: 'replies#accepted'
-  post '/replies/upload/:id', to: 'replies#upload'
+  get '/replies/upload/:id', to: 'replies#upload'
   # put '/replies/:id/accept_request', to: 'replies#accept_request'
   resources :courses
   resources :replies do
