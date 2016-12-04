@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :courses
   resources :replies do
     member do
-      get 'approve_request'
+      post 'approve_request'
     end
   end
   resources :ratings
