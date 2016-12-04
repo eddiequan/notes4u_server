@@ -79,7 +79,7 @@ class RepliesController < ApplicationController
   end 
 
   def accepted
-    @replies = Reply.all.where(slacker_id: params[:id], status: ACCEPTED)
+    @replies = Reply.all.where(notetaker_id: params[:id], status: ACCEPTED)
 
     render json: @replies
   end
