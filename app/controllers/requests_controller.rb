@@ -12,6 +12,12 @@ class RequestsController < ApplicationController
     render json: @request
   end
 
+  # GET /requests/1/replies
+  def replies
+    @replies = Reply.where(request_id: params[:id])
+    render json: @replies
+  end
+
   # POST /requests
   def create
     pp "GOT IN HERE @@@@@@@!!!!!!!!!!!!"

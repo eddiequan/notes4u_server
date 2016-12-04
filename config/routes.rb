@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   resources :users do
-    resources :ratings, :replies, :requests
+    member do
+      get 'replies'
+      get 'requests'
+    end
   end
 
   get '/replies/accepted/:id', to: 'replies#accepted'
@@ -18,7 +21,9 @@ Rails.application.routes.draw do
   resources :notifications
 
   resources :requests do
-    resources :replies, :courses
+    member do
+      get 'replies'
+    end
   end
 
   root to: 'users#index'

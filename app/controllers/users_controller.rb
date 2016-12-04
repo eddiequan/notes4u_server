@@ -13,6 +13,19 @@ class UsersController < ApplicationController
     render json: @user
   end
 
+  # GET /users/1/requests
+  def requests
+    @requests = Request.where(user_id: params[:id])
+    render json: @requests
+  end
+
+  # GET /users/1/replies
+  def replies
+    @replies = Reply.where(notetaker_id: params[:id])
+    render json: @replies
+  end
+
+
   # POST /users
   def create
     @user = User.new(user_params)
