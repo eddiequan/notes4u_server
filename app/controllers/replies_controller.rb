@@ -59,13 +59,10 @@ class RepliesController < ApplicationController
   def approve_request
     @reply = Reply.where(id: params[:id]).first
     request = Request.where(id: @reply.request_id).first
-    if @reply.update(reply_params)
-      request.update_attributes!(status: 2)
-      create_notification_for_notetaker(@reply)
-      render json: @reply
-    else
-      render json: @reply.errors, status: :unprocessable_entity
-    end
+    @reply.update_attributes!(status: 2)
+    request.update_attributes!(status: 2)
+    create_notification_for_notetaker(@reply)
+    render json: @reply
   end
 
   def create_notification_for_notetaker(reply)
